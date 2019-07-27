@@ -119,7 +119,6 @@ class LEAccount
         );
         $post = $this->connector->post($this->connector->accountURL, $sign);
         if (strpos($post['header'], "200 OK") !== false) {
-            $this->id = $post['body']['id'];
             $this->key = $post['body']['key'];
             $this->contact = $post['body']['contact'];
             $this->agreement = isset($post['body']['agreement']) ? $post['body']['agreement'] : null;
@@ -158,7 +157,6 @@ class LEAccount
             //@codeCoverageIgnoreEnd
         }
 
-        $this->id = $post['body']['id'];
         $this->key = $post['body']['key'];
         $this->contact = $post['body']['contact'];
         $this->agreement = $post['body']['agreement'];
