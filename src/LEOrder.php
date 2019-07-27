@@ -186,7 +186,7 @@ class LEOrder
         return true;
     }
 
-    private function deleteOrderFiles()
+    public function deleteOrderFiles()
     {
         $this->storage->setPrivateKey($this->basename, null);
         $this->storage->setPublicKey($this->basename, null);
@@ -225,7 +225,7 @@ class LEOrder
      * @param string $notAfter A date string formatted like 0000-00-00T00:00:00Z (yyyy-mm-dd hh:mm:ss)
      *                          until which the certificate is valid.
      */
-    private function createOrder($domains, $notBefore, $notAfter)
+    public function createOrder($domains, $notBefore, $notAfter)
     {
         if (!preg_match('~(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z|^$)~', $notBefore) ||
             !preg_match('~(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z|^$)~', $notAfter)
@@ -649,7 +649,7 @@ class LEOrder
      */
     public function finalizeOrder($csr = '')
     {
-        if ($this->status == 'pending') {
+        if ($this->status == 'pending' || $this->status == 'ready') {
             if ($this->allAuthorizationsValid()) {
                 if (empty($csr)) {
                     $csr = $this->generateCSR();
